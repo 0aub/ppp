@@ -1,0 +1,18 @@
+services:
+  # React Frontend UI
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: ppp-ui
+    ports:
+      - "${UI_PORT:-8081}:80"
+    restart: unless-stopped
+    volumes:
+      - ./data:/usr/share/nginx/html/data
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ===== STRUCTURAL COLORS - Light Mode ===== */
+    --color-bg-primary: 249 250 251;
+    --color-bg-secondary: 255 255 255;
+    --color-bg-tertiary: 243 244 246;
+    --color-bg-hover: 243 244 246;
+
+    --color-text-primary: 17 24 39;
+    --color-text-secondary: 75 85 99;
+    --color-text-tertiary: 156 163 175;
+
+    --color-border: 229 231 235;
+    --color-border-hover: 209 213 219;
+
+    --color-input-bg: 255 255 255;
+    --color-input-border: 209 213 219;
+    --color-input-text: 17 24 39;
+    --color-input-placeholder: 156 163 175;
+
+    /* ===== PRIMARY/BRAND COLORS (Blue) ===== */
+    --color-primary: 59 130 246;
+    --color-primary-hover: 37 99 235;
+    --color-primary-text: 59 130 246;
+    --color-primary-text-hover: 37 99 235;
+    --color-primary-light: 219 234 254;
+    --color-primary-border: 147 197 253;
+    --color-primary-icon: 59 130 246;
+
+    --color-focus-ring: 59 130 246;
+
+    /* ===== STATUS COLORS ===== */
+    --color-success: 34 197 94;
+    --color-success-light: 220 252 231;
+    --color-warning: 234 179 8;
+    --color-warning-light: 254 249 195;
+    --color-error: 239 68 68;
+    --color-error-light: 254 226 226;
+    --color-info: 59 130 246;
+    --color-info-light: 219 234 254;
+  }
+
+  .dark {
+    /* ===== STRUCTURAL COLORS - Dark Mode ===== */
+    --color-bg-primary: 17 24 39;
+    --color-bg-secondary: 31 41 55;
+    --color-bg-tertiary: 55 65 81;
+    --color-bg-hover: 55 65 81;
+
+    --color-text-primary: 243 244 246;
+    --color-text-secondary: 156 163 175;
+    --color-text-tertiary: 107 114 128;
+
+    --color-border: 55 65 81;
+    --color-border-hover: 75 85 99;
+
+    --color-input-bg: 31 41 55;
+    --color-input-border: 55 65 81;
+    --color-input-text: 243 244 246;
+    --color-input-placeholder: 107 114 128;
+
+    /* ===== PRIMARY/BRAND COLORS - Dark Mode ===== */
+    --color-primary: 59 130 246;
+    --color-primary-hover: 96 165 250;
+    --color-primary-text: 96 165 250;
+    --color-primary-text-hover: 147 197 253;
+    --color-primary-light: 30 58 138;
+    --color-primary-border: 37 99 235;
+    --color-primary-icon: 96 165 250;
+
+    --color-focus-ring: 59 130 246;
+
+    /* ===== STATUS COLORS - Dark Mode ===== */
+    --color-success: 34 197 94;
+    --color-success-light: 20 83 45;
+    --color-warning: 250 204 21;
+    --color-warning-light: 113 63 18;
+    --color-error: 248 113 113;
+    --color-error-light: 127 29 29;
+    --color-info: 96 165 250;
+    --color-info-light: 30 58 138;
+  }
+
+  body {
+    @apply bg-[rgb(var(--color-bg-primary))] text-[rgb(var(--color-text-primary))];
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-border));
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--color-border-hover));
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--color-border)) transparent;
+  }
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* Print Styles */
+@media print {
+  /* Hide navigation and interactive elements */
+  header,
+  nav,
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reset background colors for print */
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Ensure content fills page */
+  main {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+
+  .page-break-after {
+    page-break-after: always;
+  }
+
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+
+  /* Charts should be preserved */
+  .recharts-wrapper {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Cards styling for print */
+  [class*="rounded-xl"] {
+    border: 1px solid #e5e7eb !important;
+    box-shadow: none !important;
+  }
+
+  /* Progress bars */
+  [class*="bg-blue-500"] {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Status badges */
+  [class*="rounded-full"] {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
