@@ -1,16 +1,8 @@
-// Get Monday of a given week
-export const getWeekMonday = (date: Date): Date => {
-  const d = new Date(date);
-  const day = d.getDay();
-  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-  d.setDate(diff);
-  d.setHours(0, 0, 0, 0);
-  return d;
-};
-
-// Get current week's Monday as ISO string
-export const getCurrentWeekMonday = (): string => {
-  return getWeekMonday(new Date()).toISOString().split('T')[0];
+// Get current date as ISO string (YYYY-MM-DD)
+export const getCurrentDate = (): string => {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  return now.toISOString().split('T')[0];
 };
 
 // Format date for display
@@ -39,41 +31,54 @@ export const formatWeekRange = (mondayStr: string): string => {
   return `${mondayFormatted} - ${sundayFormatted}`;
 };
 
-// Get previous week
-export const getPreviousWeek = (mondayStr: string): string => {
+// Format single date for presentation (just the Monday)
+export const formatPresentationDate = (mondayStr: string): string => {
   const monday = new Date(mondayStr);
-  monday.setDate(monday.getDate() - 7);
-  return monday.toISOString().split('T')[0];
+  return monday.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 };
 
-// Get next week
-export const getNextWeek = (mondayStr: string): string => {
-  const monday = new Date(mondayStr);
-  monday.setDate(monday.getDate() + 7);
-  return monday.toISOString().split('T')[0];
+// Get previous day
+export const getPreviousDay = (dateStr: string): string => {
+  const date = new Date(dateStr);
+  date.setDate(date.getDate() - 1);
+  return date.toISOString().split('T')[0];
 };
 
-// Check if a week is in the future
-export const isFutureWeek = (mondayStr: string): boolean => {
-  const monday = new Date(mondayStr);
-  const currentMonday = getWeekMonday(new Date());
-  return monday > currentMonday;
+// Get next day
+export const getNextDay = (dateStr: string): string => {
+  const date = new Date(dateStr);
+  date.setDate(date.getDate() + 1);
+  return date.toISOString().split('T')[0];
 };
 
-// Get list of weeks for dropdown (past 12 weeks + current)
+// Check if a date is in the future
+export const isFutureWeek = (dateStr: string): boolean => {
+  const selectedDate = new Date(dateStr);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return selectedDate > today;
+};
+
+// Get list of dates for dropdown (past 90 days + today)
 export const getWeekOptions = (): { value: string; label: string }[] => {
-  const weeks: { value: string; label: string }[] = [];
-  const currentMonday = getWeekMonday(new Date());
+  const dates: { value: string; label: string }[] = [];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-  for (let i = 0; i < 12; i++) {
-    const monday = new Date(currentMonday);
-    monday.setDate(monday.getDate() - i * 7);
-    const value = monday.toISOString().split('T')[0];
-    weeks.push({
+  // Generate dates from today going back 90 days (about 13 weeks)
+  for (let i = 0; i < 90; i++) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    const value = date.toISOString().split('T')[0];
+    dates.push({
       value,
-      label: formatWeekRange(value),
+      label: formatPresentationDate(value),
     });
   }
 
-  return weeks;
+  return dates;
 };

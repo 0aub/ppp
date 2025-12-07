@@ -1,18 +1,18 @@
 <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="barGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#60A5FA;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#2563EB;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1" />
     </linearGradient>
     <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.3" />
-      <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0.3" />
+      <stop offset="0%" style="stop-color:#228B22;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#228B22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#228B22;stop-opacity:0.3" />
     </linearGradient>
   </defs>
 
   <!-- Background circle -->
-  <circle cx="32" cy="32" r="30" fill="#3B82F6" opacity="0.08"/>
+  <circle cx="32" cy="32" r="30" fill="#228B22" opacity="0.08"/>
 
   <!-- Progress bars -->
   <rect x="12" y="38" width="10" height="16" rx="2" fill="url(#barGradient)" opacity="0.7"/>
@@ -20,8 +20,8 @@
   <rect x="42" y="18" width="10" height="36" rx="2" fill="url(#barGradient)"/>
 
   <!-- Upward arrow/trend indicator -->
-  <path d="M 52 14 L 56 10 L 56 16 Z" fill="#22C55E"/>
-  <path d="M 48 18 L 56 10" stroke="#22C55E" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 52 14 L 56 10 L 56 16 Z" fill="#32CD32"/>
+  <path d="M 48 18 L 56 10" stroke="#32CD32" stroke-width="2" stroke-linecap="round"/>
 
   <!-- Bottom arc -->
   <path d="M 8 54 Q 32 62 56 54" stroke="url(#arcGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>

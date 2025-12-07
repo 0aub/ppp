@@ -1,14 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Project, WeeklyUpdate, ProjectStatus } from '../types';
+import { Project, WeeklyUpdate } from '../types';
 
-// Helper to get current week's Monday
-const getCurrentWeekMonday = (): string => {
+// Helper to get current day
+const getCurrentDay = (): string => {
   const now = new Date();
-  const day = now.getDay();
-  const diff = now.getDate() - day + (day === 0 ? -6 : 1);
-  const monday = new Date(now.setDate(diff));
-  return monday.toISOString().split('T')[0];
+  now.setHours(0, 0, 0, 0);
+  return now.toISOString().split('T')[0];
 };
 
 // Generate unique ID
@@ -33,6 +31,10 @@ interface ProjectStore {
   // Week Navigation
   setCurrentWeek: (week: string) => void;
 
+  // Presentation Management
+  toggleProjectInPresentation: (id: string) => void;
+  reorderProjects: (projects: Project[]) => void;
+
   // Get projects with updates for current week
   getProjectsForWeek: (week: string) => Project[];
   getProjectsWithUpdatesThisWeek: () => Project[];
@@ -42,7 +44,7 @@ export const useProjectStore = create<ProjectStore>()(
   persist(
     (set, get) => ({
       projects: [],
-      currentWeek: getCurrentWeekMonday(),
+      currentWeek: getCurrentDay(),
 
       addProject: (projectData) => {
         const now = new Date().toISOString();
@@ -123,6 +125,20 @@ export const useProjectStore = create<ProjectStore>()(
 
       setCurrentWeek: (week) => {
         set({ currentWeek: week });
+      },
+
+      toggleProjectInPresentation: (id) => {
+        set((state) => ({
+          projects: state.projects.map((p) =>
+            p.id === id
+              ? { ...p, isActiveInPresentation: !(p.isActiveInPresentation ?? true) }
+              : p
+          ),
+        }));
+      },
+
+      reorderProjects: (newProjectsOrder) => {
+        set({ projects: newProjectsOrder.map((p, index) => ({ ...p, displayOrder: index })) });
       },
 
       getProjectsForWeek: (week) => {

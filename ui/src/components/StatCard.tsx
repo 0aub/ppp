@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { LucideIcon } from 'lucide-react';
 import { colors } from '../utils/darkMode';
 
@@ -16,9 +17,9 @@ const colorClasses = {
     icon: 'text-blue-600 dark:text-blue-400',
   },
   green: {
-    bg: 'bg-green-100 dark:bg-green-900/30',
-    text: 'text-green-600 dark:text-green-400',
-    icon: 'text-green-600 dark:text-green-400',
+    bg: 'bg-[#dceee2] dark:bg-[#1e5b39]/30',
+    text: 'text-[#2b6a46] dark:text-[#7da98c]',
+    icon: 'text-[#367d56] dark:text-[#7da98c]',
   },
   yellow: {
     bg: 'bg-yellow-100 dark:bg-yellow-900/30',
@@ -42,7 +43,7 @@ const colorClasses = {
   },
 };
 
-const StatCard = ({ icon: Icon, value, label, color, trend }: StatCardProps) => {
+const StatCard = memo(({ icon: Icon, value, label, color, trend }: StatCardProps) => {
   const colorConfig = colorClasses[color];
 
   return (
@@ -53,7 +54,7 @@ const StatCard = ({ icon: Icon, value, label, color, trend }: StatCardProps) => 
       <div className={`text-2xl font-bold ${colors.textPrimary} mb-1`}>{value}</div>
       <div className={`text-sm ${colors.textSecondary}`}>{label}</div>
       {trend && (
-        <div className={`text-xs mt-2 flex items-center gap-1 ${trend.isPositive ? 'text-green-500' : 'text-red-500'}`}>
+        <div className={`text-xs mt-2 flex items-center gap-1 ${trend.isPositive ? 'text-[#367d56] dark:text-[#7da98c]' : 'text-red-500'}`}>
           <span>{trend.isPositive ? '↑' : '↓'}</span>
           <span>{Math.abs(trend.value)}%</span>
           <span className={colors.textTertiary}>vs last week</span>
@@ -61,6 +62,8 @@ const StatCard = ({ icon: Icon, value, label, color, trend }: StatCardProps) => 
       )}
     </div>
   );
-};
+});
+
+StatCard.displayName = 'StatCard';
 
 export default StatCard;

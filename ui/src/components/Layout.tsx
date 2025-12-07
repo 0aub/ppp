@@ -11,8 +11,8 @@ const Layout = () => {
   const [showPresentation, setShowPresentation] = useState(false);
 
   const navItems = [
-    { to: '/', icon: BarChart3, label: 'Reports' },
-    { to: '/projects', icon: FolderKanban, label: 'Projects' },
+    { to: '/', icon: BarChart3, label: 'التقارير' },
+    { to: '/projects', icon: FolderKanban, label: 'المشاريع' },
   ];
 
   return (
@@ -43,7 +43,7 @@ const Layout = () => {
                   className={({ isActive }) =>
                     `flex items-center gap-2 px-4 py-2 rounded-lg transition ${
                       isActive
-                        ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                        ? 'bg-[#dceee2] dark:bg-[#1e5b39]/30 text-[#2b6a46] dark:text-[#7da98c]'
                         : `${colors.textSecondary} ${colors.hover}`
                     }`
                   }
@@ -59,18 +59,18 @@ const Layout = () => {
               {/* Present button */}
               <button
                 onClick={() => setShowPresentation(true)}
-                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
-                title="Start presentation"
+                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#367d56] hover:bg-[#2b6a46] text-white rounded-lg transition"
+                title="بدء العرض التقديمي"
               >
                 <Play size={18} />
-                <span className="font-medium">Present</span>
+                <span className="font-medium">عرض تقديمي</span>
               </button>
 
               {/* Dark mode toggle */}
               <button
                 onClick={toggleDarkMode}
                 className={`p-2 rounded-lg ${colors.hover} transition`}
-                title={darkMode ? 'Light mode' : 'Dark mode'}
+                title={darkMode ? 'الوضع الفاتح' : 'الوضع الداكن'}
               >
                 {darkMode ? (
                   <Sun size={20} className="text-yellow-500" />
@@ -106,7 +106,7 @@ const Layout = () => {
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-4 py-3 rounded-lg transition ${
                       isActive
-                        ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                        ? 'bg-[#dceee2] dark:bg-[#1e5b39]/30 text-[#2b6a46] dark:text-[#7da98c]'
                         : `${colors.textSecondary} ${colors.hover}`
                     }`
                   }
@@ -121,10 +121,10 @@ const Layout = () => {
                   setMobileMenuOpen(false);
                   setShowPresentation(true);
                 }}
-                className="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600 text-white w-full"
+                className="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#367d56] text-white w-full"
               >
                 <Play size={22} />
-                <span className="font-medium text-lg">Present</span>
+                <span className="font-medium text-lg">عرض تقديمي</span>
               </button>
             </nav>
           </div>

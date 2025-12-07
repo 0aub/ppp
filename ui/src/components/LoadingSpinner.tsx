@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { colors } from '../utils/darkMode';
 
 interface LoadingSpinnerProps {
@@ -6,7 +7,7 @@ interface LoadingSpinnerProps {
   fullScreen?: boolean;
 }
 
-const LoadingSpinner = ({ size = 'md', text, fullScreen = false }: LoadingSpinnerProps) => {
+const LoadingSpinner = memo(({ size = 'md', text, fullScreen = false }: LoadingSpinnerProps) => {
   const sizeConfig = {
     sm: { container: 64, logo: 20, dot: 5, radius: 24 },
     md: { container: 88, logo: 28, dot: 6, radius: 34 },
@@ -25,11 +26,11 @@ const LoadingSpinner = ({ size = 'md', text, fullScreen = false }: LoadingSpinne
         {/* Orbiting dots */}
         {Array.from({ length: dots }).map((_, i) => {
           const angle = (i * 360) / dots;
-          const delay = i * (1 / dots);
+          const delay = i * (1.2 / dots);
           return (
             <div
               key={i}
-              className="absolute rounded-full bg-blue-500"
+              className="absolute rounded-full bg-[#367d56]"
               style={{
                 width: config.dot,
                 height: config.dot,
@@ -38,9 +39,8 @@ const LoadingSpinner = ({ size = 'md', text, fullScreen = false }: LoadingSpinne
                 marginLeft: -config.dot / 2,
                 marginTop: -config.dot / 2,
                 transform: `rotate(${angle}deg) translateY(-${config.radius}px)`,
-                animation: `orbit 1.2s ease-in-out infinite`,
+                animation: `spinnerPulse 1.2s ease-in-out infinite`,
                 animationDelay: `${delay}s`,
-                opacity: 0.3 + (i / dots) * 0.7,
               }}
             />
           );
@@ -52,9 +52,9 @@ const LoadingSpinner = ({ size = 'md', text, fullScreen = false }: LoadingSpinne
           style={{ width: config.logo, height: config.logo }}
         >
           <svg viewBox="0 0 64 64" className="w-full h-full">
-            <rect x="12" y="38" width="10" height="16" rx="2" fill="#3B82F6" opacity="0.7"/>
-            <rect x="27" y="28" width="10" height="26" rx="2" fill="#3B82F6" opacity="0.85"/>
-            <rect x="42" y="18" width="10" height="36" rx="2" fill="#3B82F6"/>
+            <rect x="12" y="38" width="10" height="16" rx="2" fill="#7da98c" opacity="0.7"/>
+            <rect x="27" y="28" width="10" height="26" rx="2" fill="#4b8b66" opacity="0.85"/>
+            <rect x="42" y="18" width="10" height="36" rx="2" fill="#367d56"/>
           </svg>
         </div>
       </div>
@@ -64,14 +64,14 @@ const LoadingSpinner = ({ size = 'md', text, fullScreen = false }: LoadingSpinne
       )}
 
       <style>{`
-        @keyframes orbit {
+        @keyframes spinnerPulse {
           0%, 100% {
             opacity: 0.3;
-            transform: rotate(var(--angle)) translateY(var(--radius)) scale(0.8);
+            scale: 0.8;
           }
           50% {
             opacity: 1;
-            transform: rotate(var(--angle)) translateY(var(--radius)) scale(1.2);
+            scale: 1.2;
           }
         }
       `}</style>
@@ -87,6 +87,8 @@ const LoadingSpinner = ({ size = 'md', text, fullScreen = false }: LoadingSpinne
   }
 
   return content;
-};
+});
+
+LoadingSpinner.displayName = 'LoadingSpinner';
 
 export default LoadingSpinner;
